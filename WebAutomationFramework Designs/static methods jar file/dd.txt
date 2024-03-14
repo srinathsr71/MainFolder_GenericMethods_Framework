@@ -1,8 +1,11 @@
-mvn install:install-file -Dfile="C:\Users\Admin\Desktop\static methods jar file\WAFSMethods.jar" -DgroupId=com.GenericStaticMethods -DartifactId=webAutomationFramework -Dversion=0.0.2 -Dpackaging=jar -Dscope=test
+	
+mvn install:install-file -Dfile="C:\Users\Admin\Desktop\static methods jar file\WAFStaticMethods.jar" -DgroupId=com.GenericStaticMethods -DartifactId=WebAutomationFramework -Dversion=0.0.2 -Dpackaging=jar -Dscope=test
 
 <dependency>
 	    <groupId>com.GenericStaticMethods</groupId>
-            <artifactId>webAutomationFramework</artifactId>
+            <artifactId>WebAutomationFramework</artifactId>
             <version>0.0.2</version>
 </dependency>
+
+
 
