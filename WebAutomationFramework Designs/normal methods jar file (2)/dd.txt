@@ -1,0 +1,8 @@
+mvn install:install-file -Dfile="C:\Users\Admin\Desktop\normal methods jar file (2)\WAFNMethods.jar" -DgroupId=com.normalOperationMethods -DartifactId=WebAutomationFramework -Dversion=0.0.1 -Dpackaging=jar -Dscope=test
+
+<dependency>
+	<groupId>com.normalOperationMethods</groupId>
+            <artifactId>WebAutomationFramework</artifactId>
+            <version>0.0.1</version>
+            <scope>test</scope>
+	  </dependency>
