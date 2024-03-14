@@ -467,19 +467,19 @@ public class GenericStaticMethods {
 	    } 
 	  }
 	  
-	  public static void openBrowser(String browser) throws IOException {
-	    if (browser.equalsIgnoreCase("firefox")) {
-	      WebDriverManager.firefoxdriver().setup();
-	      driver = (WebDriver)new FirefoxDriver();
-	    } else if (browser.equalsIgnoreCase("chrome")) {
-	      WebDriverManager.chromedriver().setup();
-	      driver = (WebDriver)new ChromeDriver();
-	    } else if (browser.equalsIgnoreCase("edge")) {
-	      WebDriverManager.edgedriver().setup();
-	      driver = (WebDriver)new EdgeDriver();
-	    } else {
-	      System.out.println("Unsupported browser: " + browser);
-	    } 
-	  }
+	  public static void openBrowser() throws IOException {
+			if (getProperty("browser").equalsIgnoreCase("firefox")) {
+				WebDriverManager.firefoxdriver().setup();
+				driver = new FirefoxDriver();
+			} else if (getProperty("browser").equalsIgnoreCase("chrome")) {
+				WebDriverManager.chromedriver().setup();
+				driver = new ChromeDriver();
+			} else if (getProperty("browser").equalsIgnoreCase("edge")) {
+				WebDriverManager.edgedriver().setup();
+				driver = new EdgeDriver();
+			} else {
+				System.out.println("Unsupported browser: ");
+			}
+		}
 	}
 	
