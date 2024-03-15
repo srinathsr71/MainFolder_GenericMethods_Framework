@@ -3,6 +3,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class GenericStaticMethods {
 
@@ -49,11 +52,11 @@ public class GenericStaticMethods {
 	    return driver.getTitle();
 	  }
 	  
-	  public static void clickElement() {
+	  public static void clickElement(WebElement element) {
 	    element.click();
 	  }
 	  
-	  public static void sendKeysToElement(CharSequence... keys) {
+	  public static void sendKeysToElement(WebElement element,CharSequence... keys) {
 	    element.sendKeys(keys);
 	  }
 	  
@@ -73,11 +76,11 @@ public class GenericStaticMethods {
 	    } 
 	  }
 	  
-	  public static String getElementText() {
+	  public static String getElementText(WebElement element) {
 	    return element.getText();
 	  }
 	  
-	  public static String getElementAttribute(String attributeName) {
+	  public static String getElementAttribute(WebElement element,String attributeName) {
 	    return element.getAttribute(attributeName);
 	  }
 	  
@@ -93,22 +96,22 @@ public class GenericStaticMethods {
 	    ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", new Object[] { element });
 	  }
 	  
-	  public static void selectDropdownByVisibleText(String visibleText) {
+	  public static void selectDropdownByVisibleText(WebElement element,String visibleText) {
 	    Select dropdown = new Select(element);
 	    dropdown.selectByVisibleText(visibleText);
 	  }
 	  
-	  public static void selectDropDownByValue(String value) {
+	  public static void selectDropDownByValue(WebElement element,String value) {
 	    Select dropdown = new Select(element);
 	    dropdown.selectByValue(value);
 	  }
 	  
-	  public static void selectDropDownByIndex(int index) {
+	  public static void selectDropDownByIndex(WebElement element,int index) {
 	    Select dropdown = new Select(element);
 	    dropdown.selectByIndex(index);
 	  }
 	  
-	  public static boolean isElementDisplayed() {
+	  public static boolean isElementDisplayed(WebElement element) {
 	    try {
 	      element.isDisplayed();
 	      return true;
@@ -117,7 +120,7 @@ public class GenericStaticMethods {
 	    } 
 	  }
 	  
-	  public static boolean isElementEnabled() {
+	  public static boolean isElementEnabled(WebElement element) {
 	    try {
 	      element.isEnabled();
 	      return true;
@@ -126,7 +129,7 @@ public class GenericStaticMethods {
 	    } 
 	  }
 	  
-	  public static boolean isElementSelected() {
+	  public static boolean isElementSelected(WebElement element) {
 	    try {
 	      element.isSelected();
 	      return true;
@@ -152,7 +155,7 @@ public class GenericStaticMethods {
 	    return ele.size();
 	  }
 	  
-	  public static void deselectAllOptions() {
+	  public static void deselectAllOptions(WebElement element) {
 	    Select dropdown = new Select(element);
 	    dropdown.deselectAll();
 	  }
@@ -161,26 +164,26 @@ public class GenericStaticMethods {
 	    driver.switchTo().defaultContent();
 	  }
 	  
-	  public static void switchToFrame() {
+	  public static void switchToFrame(WebElement element) {
 	    driver.switchTo().frame(element);
 	  }
 	  
-	  public static void clickAndHold() {
+	  public static void clickAndHold(WebElement element) {
 	    Actions actions = new Actions(driver);
 	    actions.clickAndHold(element).build().perform();
 	  }
 	  
-	  public static void moveToElement() {
+	  public static void moveToElement(WebElement element) {
 	    Actions actions = new Actions(driver);
 	    actions.moveToElement(element).build().perform();
 	  }
 	  
-	  public static void doubleClickElement() {
+	  public static void doubleClickElement(WebElement element) {
 	    Actions actions = new Actions(driver);
 	    actions.doubleClick(element).build().perform();
 	  }
 	  
-	  public static void contextClickElement() {
+	  public static void contextClickElement(WebElement element) {
 	    Actions actions = new Actions(driver);
 	    actions.contextClick(element).build().perform();
 	  }
@@ -190,7 +193,7 @@ public class GenericStaticMethods {
 	    actions.dragAndDrop(source, target).build().perform();
 	  }
 	  
-	  public static void keyDownAndType(Keys key, CharSequence... keys) {
+	  public static void keyDownAndType(WebElement element,Keys key, CharSequence... keys) {
 	    Actions actions = new Actions(driver);
 	    actions.keyDown(element, (CharSequence)key).sendKeys(keys).keyUp(element, (CharSequence)key).build().perform();
 	  }
@@ -227,11 +230,11 @@ public class GenericStaticMethods {
 	    alert.sendKeys(keys);
 	  }
 	  
-	  public static String getElementTagName() {
+	  public static String getElementTagName(WebElement element) {
 	    return element.getTagName();
 	  }
 	  
-	  public static String getElementCssValue(String propertyName) {
+	  public static String getElementCssValue(WebElement element,String propertyName) {
 	    return element.getCssValue(propertyName);
 	  }
 	  
@@ -317,7 +320,7 @@ public class GenericStaticMethods {
 	    } 
 	  }
 	  
-	  public static boolean switchToFrameByElement() {
+	  public static boolean switchToFrameByElement(WebElement element) {
 	    try {
 	      driver.switchTo().frame(element);
 	      return true;
@@ -368,7 +371,7 @@ public class GenericStaticMethods {
 	    } 
 	  }
 	  
-	  public static List<String> getAllOptions() {
+	  public static List<String> getAllOptions(WebElement element) {
 	    List<String> optionsList = new ArrayList<>();
 	    try {
 	      Select select = new Select(element);
@@ -381,7 +384,7 @@ public class GenericStaticMethods {
 	    return optionsList;
 	  }
 	  
-	  public static String getFirstSelectedOption() {
+	  public static String getFirstSelectedOption(WebElement element) {
 	    String firstSelectedOption = null;
 	    try {
 	      Select select = new Select(element);
@@ -393,7 +396,7 @@ public class GenericStaticMethods {
 	    return firstSelectedOption;
 	  }
 	  
-	  public static List<String> getAllSelectedOptions() {
+	  public static List<String> getAllSelectedOptions(WebElement element) {
 	    List<String> selectedOptionsList = new ArrayList<>();
 	    try {
 	      Select select = new Select(element);
@@ -481,5 +484,21 @@ public class GenericStaticMethods {
 				System.out.println("Unsupported browser: ");
 			}
 		}
+	  	public static void implicitWait(WebDriver driver)
+		{
+			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		}
+		
+		
+		
+		public static void explicitWaitToEnterData(WebDriver driver,WebElement element,String data) throws IOException
+		{
+			WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
+			wait.until(ExpectedConditions.visibilityOf(element)).sendKeys(getProperty(data));
+		}
+		
+	  
 	}
+
+
 	
