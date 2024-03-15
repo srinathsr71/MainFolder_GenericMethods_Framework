@@ -3,6 +3,7 @@ package com.operationmethods;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +32,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -55,12 +58,12 @@ public class GenericMethods {
 		return driver.getTitle();
 	}
 
-	public void clickElement() {
+	public void clickElement(WebElement element) {
 		element.click();
 	}
 
 	// sending text to one web element use this method
-	public void sendKeysToElement(CharSequence... keys) {
+	public void sendKeysToElement(WebElement element,CharSequence... keys) {
 		element.sendKeys(keys);
 	}
 
@@ -81,11 +84,11 @@ public class GenericMethods {
 		}
 	}
 
-	public String getElementText() {
+	public String getElementText(WebElement element) {
 		return element.getText();
 	}
 
-	public String getElementAttribute(String attributeName) {
+	public String getElementAttribute(WebElement element,String attributeName) {
 		return element.getAttribute(attributeName);
 	}
 
@@ -101,23 +104,23 @@ public class GenericMethods {
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 	}
 
-	public void selectDropdownByVisibleText(String visibleText) {
+	public void selectDropdownByVisibleText(WebElement element,String visibleText) {
 		Select dropdown = new Select(element);
 		dropdown.selectByVisibleText(visibleText);
 	}
 
-	public void selectDropDownByValue(String value) {
+	public void selectDropDownByValue(WebElement element,String value) {
 		Select dropdown = new Select(element);
 		dropdown.selectByValue(value);
 	}
 
-	public void selectDropDownByIndex(int index) {
+	public void selectDropDownByIndex(WebElement element,int index) {
 		Select dropdown = new Select(element);
 		dropdown.selectByIndex(index);
 	}
 
 	// validation methods of elements in selenium
-	public boolean isElementDisplayed() {
+	public boolean isElementDisplayed(WebElement element) {
 		try {
 			element.isDisplayed();
 			return true;
@@ -126,7 +129,7 @@ public class GenericMethods {
 		}
 	}
 
-	public boolean isElementEnabled() {
+	public boolean isElementEnabled(WebElement element) {
 		try {
 			element.isEnabled();
 			return true;
@@ -135,7 +138,7 @@ public class GenericMethods {
 		}
 	}
 
-	public boolean isElementSelected() {
+	public boolean isElementSelected(WebElement element) {
 		try {
 			element.isSelected();
 			return true;
@@ -161,7 +164,7 @@ public class GenericMethods {
 		return ele.size();
 	}
 
-	public void deselectAllOptions() {
+	public void deselectAllOptions(WebElement element) {
 		Select dropdown = new Select(element);
 		dropdown.deselectAll();
 	}
@@ -170,26 +173,26 @@ public class GenericMethods {
 		driver.switchTo().defaultContent();
 	}
 
-	public void switchToFrame() {
+	public void switchToFrame(WebElement element) {
 		driver.switchTo().frame(element);
 	}
 
-	public void clickAndHold() {
+	public void clickAndHold(WebElement element) {
 		Actions actions = new Actions(driver);
 		actions.clickAndHold(element).build().perform();
 	}
 
-	public void moveToElement() {
+	public void moveToElement(WebElement element) {
 		Actions actions = new Actions(driver);
 		actions.moveToElement(element).build().perform();
 	}
 
-	public void doubleClickElement() {
+	public void doubleClickElement(WebElement element) {
 		Actions actions = new Actions(driver);
 		actions.doubleClick(element).build().perform();
 	}
 
-	public void contextClickElement() {
+	public void contextClickElement(WebElement element) {
 		Actions actions = new Actions(driver);
 		actions.contextClick(element).build().perform();
 	}
@@ -199,7 +202,7 @@ public class GenericMethods {
 		actions.dragAndDrop(source, target).build().perform();
 	}
 
-	public void keyDownAndType(Keys key, CharSequence... keys) {
+	public void keyDownAndType(WebElement element,Keys key, CharSequence... keys) {
 		Actions actions = new Actions(driver);
 		actions.keyDown(element, key).sendKeys(keys).keyUp(element, key).build().perform();
 	}
@@ -236,11 +239,11 @@ public class GenericMethods {
 		alert.sendKeys(keys);
 	}
 
-	public String getElementTagName() {
+	public String getElementTagName(WebElement element) {
 		return element.getTagName();
 	}
 
-	public String getElementCssValue(String propertyName) {
+	public String getElementCssValue(WebElement element,String propertyName) {
 		return element.getCssValue(propertyName);
 	}
 
@@ -327,7 +330,7 @@ public class GenericMethods {
 		}
 	}
 
-	public boolean switchToFrameByElement() {
+	public boolean switchToFrameByElement(WebElement element) {
 		try {
 			driver.switchTo().frame(element);
 			return true;
@@ -385,7 +388,7 @@ public class GenericMethods {
 		}
 	}
 
-	public List<String> getAllOptions() {
+	public List<String> getAllOptions(WebElement element) {
 		List<String> optionsList = new ArrayList<>();
 		try {
 			Select select = new Select(element);
@@ -399,7 +402,7 @@ public class GenericMethods {
 		return optionsList;
 	}
 
-	public String getFirstSelectedOption() {
+	public String getFirstSelectedOption(WebElement element) {
 		String firstSelectedOption = null;
 		try {
 			Select select = new Select(element);
@@ -411,7 +414,7 @@ public class GenericMethods {
 		return firstSelectedOption;
 	}
 
-	public List<String> getAllSelectedOptions() {
+	public List<String> getAllSelectedOptions(WebElement element) {
 		List<String> selectedOptionsList = new ArrayList<>();
 		try {
 			Select select = new Select(element);
@@ -493,4 +496,18 @@ public class GenericMethods {
 			System.out.println("Unsupported browser: ");
 		}
 	}
+	
+	public void implicitWait(WebDriver driver)
+	{
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+	}
+	
+	
+	
+	public void explicitWaitToEnterData(WebDriver driver ,WebElement element,String data) throws IOException
+	{
+		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.visibilityOf(element)).sendKeys(getProperty(data));
+	}
+	
 }
